@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 
 import { WeatherBlockInfoStyles } from "../../styles/WeatherBlockInfo";
+import { getHumidityStatus } from "../../helpers/getHumidityStatus";
 
 interface HumidityProps {
   humidity?: number;
@@ -24,7 +25,7 @@ export default function Humidity({ humidity = 0 }: HumidityProps) {
           </View>
         </View>
 
-        <Text style={styles.humidityStatus}>Uncomfortable</Text>
+        <Text style={styles.humidityStatus}>{getHumidityStatus(humidity)}</Text>
       </View>
     </View>
   );
