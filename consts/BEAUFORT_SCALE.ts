@@ -1,0 +1,15 @@
+export const BEAUFORT_SCALE = [
+  "Calm",
+  "Light air",
+  "Light breeze",
+  "Gentle breeze",
+  "Moderate breeze",
+  "Fresh breeze",
+  "Strong breeze",
+  "High wind",
+  "Fresh gale",
+  "Strong gale",
+  "Storm",
+  "Violent storm",
+  "Hurricane",
+];

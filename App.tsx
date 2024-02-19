@@ -1,20 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from "react-native";
+import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
+
+import SearchPlace from "./components/Weather/SearchPlace";
+import BackHome from "./components/Weather/BackHome";
+import CurrentWeather from "./components/Weather/CurrentWeather";
+import WithCurrentLocation from "./components/hoc/WithCurrentLocation";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AutocompleteDropdownContextProvider>
+      <WithCurrentLocation>
+        <SafeAreaView
+          style={{
+            ...styles.container,
+            paddingTop: StatusBar.currentHeight,
+          }}
+        >
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.head}>
+              <SearchPlace />
+
+              <BackHome />
+            </View>
+
+            <View style={styles.content}>
+              <CurrentWeather />
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </WithCurrentLocation>
+    </AutocompleteDropdownContextProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#f9fafc",
   },
+  scrollView: {
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+  },
+  head: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20,
+  },
+  content: {},
 });
