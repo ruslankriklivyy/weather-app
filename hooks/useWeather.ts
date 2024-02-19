@@ -8,11 +8,14 @@ import {
 } from "../components/hoc/WithCurrentLocation";
 
 export default function useWeather() {
+  const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState<any>(null);
 
   const { location } = useCurrentLocationContext();
 
   const getWeather = async () => {
+    setIsLoading(true);
+
     try {
       const location = await AsyncStorage.getItem(USER_COORDS_STORAGE_KEY);
 
@@ -27,6 +30,8 @@ export default function useWeather() {
       setWeather(weatherFromApi);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,5 +43,6 @@ export default function useWeather() {
 
   return {
     weather,
+    isLoading,
   };
 }

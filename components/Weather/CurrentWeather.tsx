@@ -10,37 +10,41 @@ import { getWeatherIcon } from "../../helpers/getWeatherIcon";
 import { useCurrentLocationContext } from "../hoc/WithCurrentLocation";
 
 export default function CurrentWeather() {
-  const { weather } = useWeather();
+  const { weather, isLoading } = useWeather();
   const { location } = useCurrentLocationContext();
 
-  const tempMax = weather?.current?.temp;
-  const tempMin = weather?.daily[0]?.temp?.min;
+  const tempMax = weather?.current?.temp || 0;
+  const tempMin = weather?.daily[0]?.temp?.min || 0;
 
   return (
     <View style={styles.currentWeather}>
-      {getWeatherIcon(weather?.current?.weather[0]?.id)}
+      {!isLoading && (
+        <>
+          {getWeatherIcon(weather?.current?.weather[0]?.id)}
 
-      <Text style={styles.cityName}>
-        {location?.isoCountryCode}, {location?.cityName}
-      </Text>
+          <Text style={styles.cityName}>
+            {location?.isoCountryCode}, {location?.cityName}
+          </Text>
 
-      <View style={styles.weatherBox}>
-        <Text style={styles.weatherValue}>
-          {getTemp(weather?.current?.temp)}
-        </Text>
+          <View style={styles.weatherBox}>
+            <Text style={styles.weatherValue}>
+              {getTemp(weather?.current?.temp)}
+            </Text>
 
-        <Text style={styles.weatherDegree}>°C</Text>
-      </View>
+            <Text style={styles.weatherDegree}>°C</Text>
+          </View>
 
-      <View style={styles.moreInfo}>
-        <WindStatus windSpeed={weather?.current?.wind_speed} />
+          <View style={styles.moreInfo}>
+            <WindStatus windSpeed={weather?.current?.wind_speed} />
 
-        <SunriseAndSunset weather={weather?.current} />
+            <SunriseAndSunset weather={weather?.current} />
 
-        <Humidity humidity={weather?.current?.humidity} />
+            <Humidity humidity={weather?.current?.humidity} />
 
-        <MinMaxTemp min={getTemp(tempMin)} max={getTemp(tempMax)} />
-      </View>
+            <MinMaxTemp min={getTemp(tempMin)} max={getTemp(tempMax)} />
+          </View>
+        </>
+      )}
     </View>
   );
 }
@@ -50,6 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "stretch",
+    flex: 1,
   },
   cityName: {
     fontSize: 34,
@@ -82,12 +87,12 @@ const styles = StyleSheet.create({
   },
   moreInfo: {
     width: "100%",
-    gap: 15,
+    gap: 12,
     borderRadius: 15,
     marginTop: 25,
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
 });

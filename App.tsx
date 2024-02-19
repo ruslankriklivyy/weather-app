@@ -16,12 +16,7 @@ export default function App() {
   return (
     <AutocompleteDropdownContextProvider>
       <WithCurrentLocation>
-        <SafeAreaView
-          style={{
-            ...styles.container,
-            paddingTop: StatusBar.currentHeight,
-          }}
-        >
+        <SafeAreaView style={styles.container}>
           <ScrollView style={styles.scrollView}>
             <View style={styles.head}>
               <SearchPlace />
@@ -42,11 +37,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
     backgroundColor: "#f9fafc",
   },
   scrollView: {
     paddingHorizontal: 10,
     paddingBottom: 20,
+    paddingTop: StatusBar.currentHeight,
   },
   head: {
     flexDirection: "row",
