@@ -7,11 +7,13 @@ import {
 
 import { citiesAPI } from "../../api/citiesAPI";
 import { useCurrentLocationContext } from "../hoc/WithCurrentLocation";
+import useDebounce from "../../hooks/useDebounce";
 
 export default function SearchPlace() {
   const [cities, setCities] = useState<any[]>([]);
   const [searchValue, setSearchValue] = useState("");
 
+  const searchValueDebounced = useDebounce(searchValue, 500);
   const { setLocation } = useCurrentLocationContext();
 
   const onSelectItem = (option: TAutocompleteDropdownItem) => {
@@ -26,7 +28,7 @@ export default function SearchPlace() {
     });
   };
 
-  const fetchCities = async () => {
+  const fetchCities = async (searchValue: string) => {
     try {
       const citiesFromApi = await citiesAPI.fetchCities(searchValue);
       // @ts-ignore
@@ -37,8 +39,8 @@ export default function SearchPlace() {
   };
 
   useEffect(() => {
-    fetchCities();
-  }, [searchValue]);
+    fetchCities(searchValueDebounced);
+  }, [searchValueDebounced]);
 
   return (
     <View style={styles.searchPlace}>
