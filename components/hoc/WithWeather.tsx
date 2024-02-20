@@ -10,11 +10,15 @@ interface WithWeatherProps {
 export const WeatherContext = createContext<{
   degreeType: DegreeType;
   filterType: FilterType;
+  isAnimate: boolean;
+  setIsAnimate: (isAnimate: boolean) => void;
   setDegreeType: (type: DegreeType) => void;
   setFilterType: (type: FilterType) => void;
 }>({
   degreeType: "C",
   filterType: "today",
+  isAnimate: true,
+  setIsAnimate: () => null,
   setDegreeType: () => null,
   setFilterType: () => null,
 });
@@ -22,12 +26,18 @@ export const WeatherContext = createContext<{
 export const useWeatherContext = () => useContext(WeatherContext);
 
 function WithWeather({ children }: WithWeatherProps) {
+  const [isAnimate, setIsAnimate] = useState<boolean>(true);
   const [degreeType, setDegreeType] = useState<DegreeType>("C");
   const [filterType, setFilterType] = useState<FilterType>("today");
 
   const contextValue = {
     degreeType,
     filterType,
+    isAnimate,
+    setIsAnimate: (isAnimate: boolean) => {
+      setIsAnimate(isAnimate);
+      return null;
+    },
     setDegreeType: (type: DegreeType) => {
       setDegreeType(type);
       return null;

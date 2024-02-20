@@ -2,12 +2,23 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { WeatherBlockInfoStyles } from "../../styles/WeatherBlockInfo";
 import { getHumidityStatus } from "../../helpers/getHumidityStatus";
+import { MotiView } from "moti";
+import { useEffect, useState } from "react";
 
 interface HumidityProps {
   humidity?: number;
 }
 
 export default function Humidity({ humidity = 0 }: HumidityProps) {
+  const [isAnimate, setIsAnimate] = useState(true);
+
+  useEffect(() => {
+    setIsAnimate(true);
+    setTimeout(() => {
+      setIsAnimate(false);
+    }, 1200);
+  }, []);
+
   return (
     <View style={WeatherBlockInfoStyles.block}>
       <View style={WeatherBlockInfoStyles.head}>
@@ -19,9 +30,17 @@ export default function Humidity({ humidity = 0 }: HumidityProps) {
           <Text style={styles.humidityPercent}>{humidity}%</Text>
 
           <View style={styles.humidityChart}>
-            <View
-              style={{ ...styles.humidityChartRound, height: `${humidity}%` }}
-            ></View>
+            <MotiView
+              animate={{
+                opacity: isAnimate ? 0.6 : 1,
+                height: isAnimate ? "0%" : `${humidity}%`,
+              }}
+              transition={{
+                type: "spring",
+                duration: 1500,
+              }}
+              style={styles.humidityChartRound}
+            />
           </View>
         </View>
 

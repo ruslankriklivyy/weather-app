@@ -1,10 +1,4 @@
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  View,
-} from "react-native";
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet } from "react-native";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 import {
   useFonts,
@@ -14,11 +8,9 @@ import {
   Rubik_700Bold,
 } from "@expo-google-fonts/rubik";
 
-import SearchPlace from "./components/Weather/SearchPlace";
-import BackHome from "./components/Weather/BackHome";
-import CurrentWeather from "./components/Weather/CurrentWeather";
 import WithCurrentLocation from "./components/hoc/WithCurrentLocation";
 import WithWeather from "./components/hoc/WithWeather";
+import MainLayout from "./layouts/MainLayout";
 
 export default function App() {
   let [fontsLoaded, fontError] = useFonts({
@@ -38,15 +30,7 @@ export default function App() {
         <WithWeather>
           <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
-              <View style={styles.head}>
-                <SearchPlace />
-
-                <BackHome />
-              </View>
-
-              <View style={styles.content}>
-                <CurrentWeather />
-              </View>
+              <MainLayout />
             </ScrollView>
           </SafeAreaView>
         </WithWeather>
@@ -64,12 +48,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 20,
   },
-  head: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20,
-    marginTop: StatusBar.currentHeight,
-  },
-  content: {},
 });
