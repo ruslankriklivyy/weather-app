@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   },
   humidityPercent: {
     fontSize: 24,
+    fontFamily: "Rubik_400Regular",
   },
   humidityStatus: {
     marginTop: 20,

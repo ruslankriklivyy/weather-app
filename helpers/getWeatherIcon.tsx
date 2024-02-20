@@ -12,9 +12,9 @@ import SunnySvg from "../assets/sunny.svg";
 import TornadoSvg from "../assets/tornado.svg";
 import WindySvg from "../assets/windy.svg";
 
-const SIZE = 220;
+export const getWeatherIcon = (weatherId: number, defaultSize?: number) => {
+  const SIZE = defaultSize || 220;
 
-export const getWeatherIcon = (weatherId: number) => {
   if (weatherId >= 200 && weatherId <= 232) {
     return <ThunderStromSvg width={SIZE} height={SIZE} />;
   }

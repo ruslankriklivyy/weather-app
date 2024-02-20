@@ -43,7 +43,11 @@ export default function SearchPlace() {
   return (
     <View style={styles.searchPlace}>
       <AutocompleteDropdown
-        textInputProps={{ placeholder: "Enter a city name" }}
+        textInputProps={{
+          placeholder: "Enter a city name",
+          style: { fontFamily: "Rubik_400Regular" },
+        }}
+        suggestionsListTextStyle={{ fontFamily: "Rubik_400Regular" }}
         containerStyle={{ width: "100%" }}
         inputContainerStyle={{ width: "100%" }}
         showChevron={false}

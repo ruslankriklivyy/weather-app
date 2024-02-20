@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Platform } from "react-native";
 
 import WindStatus from "./WindStatus";
 import SunriseAndSunset from "./SunriseAndSunset";
@@ -8,6 +8,8 @@ import useWeather from "../../hooks/useWeather";
 import { getTemp } from "../../helpers/getTemp";
 import { getWeatherIcon } from "../../helpers/getWeatherIcon";
 import { useCurrentLocationContext } from "../hoc/WithCurrentLocation";
+import Picker from "./Picker";
+import ListWeather from "./ListWeather";
 
 export default function CurrentWeather() {
   const { weather, isLoading } = useWeather();
@@ -43,6 +45,12 @@ export default function CurrentWeather() {
 
             <MinMaxTemp min={getTemp(tempMin)} max={getTemp(tempMax)} />
           </View>
+
+          <View style={styles.bottom}>
+            <Picker />
+
+            <ListWeather weather={weather} />
+          </View>
         </>
       )}
     </View>
@@ -53,11 +61,12 @@ const styles = StyleSheet.create({
   currentWeather: {
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "stretch",
-    flex: 1,
+    flexDirection: "column",
   },
   cityName: {
     fontSize: 34,
+    fontFamily: "Rubik_400Regular",
+    paddingTop: 5,
   },
   weatherBox: {
     flexDirection: "row",
@@ -66,10 +75,12 @@ const styles = StyleSheet.create({
   },
   weatherValue: {
     fontWeight: "600",
+    fontFamily: "Rubik_600SemiBold",
     fontSize: 74,
   },
   weatherDegree: {
     fontSize: 32,
+    fontFamily: "Rubik_500Medium",
   },
   dateBox: {
     flexDirection: "row",
@@ -79,11 +90,13 @@ const styles = StyleSheet.create({
   },
   day: {
     fontWeight: "500",
+    fontFamily: "Rubik_500Medium",
     fontSize: 18,
   },
   time: {
     fontSize: 18,
     opacity: 0.7,
+    fontFamily: "Rubik_400Regular",
   },
   moreInfo: {
     width: "100%",
@@ -94,5 +107,9 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
+  },
+  bottom: {
+    marginTop: 20,
+    flex: 1,
   },
 });

@@ -5,6 +5,7 @@ export const WeatherBlockInfoStyles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 18,
     opacity: 0.8,
+    fontFamily: "Rubik_500Medium",
   },
   head: {
     marginBottom: 10,

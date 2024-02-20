@@ -47,5 +47,6 @@ const styles = StyleSheet.create({
   },
   temp: {
     fontSize: 24,
+    fontFamily: "Rubik_400Regular",
   },
 });
