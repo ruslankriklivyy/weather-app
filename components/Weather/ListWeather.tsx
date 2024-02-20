@@ -95,7 +95,7 @@ export default function ListWeather({ weather }: ListWeatherProps) {
 const styles = StyleSheet.create({
   listWeather: {
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     flexWrap: "wrap",
     gap: 10,
     flexGrow: 1,
