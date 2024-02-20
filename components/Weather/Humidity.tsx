@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
   },
   humidityStatus: {
     marginTop: 20,
+    fontSize: 16,
+    fontFamily: "Rubik_400Regular",
   },
   humidityChart: {
     position: "relative",

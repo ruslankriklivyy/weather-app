@@ -36,13 +36,16 @@ const styles = StyleSheet.create({
   windValue: {
     fontWeight: "600",
     fontSize: 24,
+    fontFamily: "Rubik_600SemiBold",
   },
   windDegree: {
     fontSize: 16,
     marginBottom: 3,
+    fontFamily: "Rubik_400Regular",
   },
   windStatusValue: {
     fontSize: 16,
     marginTop: 15,
+    fontFamily: "Rubik_400Regular",
   },
 });

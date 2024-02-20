@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     backgroundColor: "#f9fafc",
-    paddingTop: StatusBar.currentHeight,
   },
   scrollView: {
     paddingHorizontal: 10,
@@ -70,6 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
+    marginTop: StatusBar.currentHeight,
   },
   content: {},
 });

@@ -27,9 +27,11 @@ export default function useWeather() {
         lat: locationJSON.latitude,
       });
 
+      console.log("weatherFromApi", weatherFromApi);
+
       setWeather(weatherFromApi);
     } catch (error) {
-      console.error(error);
+      console.log("here", error);
     } finally {
       setIsLoading(false);
     }

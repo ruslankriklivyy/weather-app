@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 24,
+    fontFamily: "Rubik_400Regular",
   },
   icon: {
     width: 40,
