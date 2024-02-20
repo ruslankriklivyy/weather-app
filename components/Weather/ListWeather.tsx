@@ -27,7 +27,7 @@ function ListWeatherItem({ item }: ListWeatherItemProps) {
       <View style={styles.listWeatherItemBottom}>
         <Text style={styles.listWeatherItemTemp}>{item?.temp}°</Text>
 
-        {item?.minTemp && (
+        {typeof item?.minTemp === "number" && (
           <Text style={styles.listWeatherItemTempMin}>{item?.minTemp}°</Text>
         )}
       </View>
