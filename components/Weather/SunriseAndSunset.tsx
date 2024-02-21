@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   },
   sunriseAndSunsetBlock: {
     flexDirection: "row",
+    alignItems: "center",
     gap: 10,
   },
   time: {

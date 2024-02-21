@@ -42,7 +42,7 @@ export default function ListWeather({ weather }: ListWeatherProps) {
   const { filterType } = useWeatherContext();
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       const filteredItems =
         filterType === "today"
           ? weather?.hourly?.slice(1, 8)
@@ -61,13 +61,21 @@ export default function ListWeather({ weather }: ListWeatherProps) {
 
       setItems(newItems);
     }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [filterType, weather]);
 
   useEffect(() => {
     setIsAnimate(true);
-    setTimeout(() => {
+
+    const timer = setTimeout(() => {
       setIsAnimate(false);
     }, 1000);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [filterType]);
 
   return (
@@ -82,7 +90,7 @@ export default function ListWeather({ weather }: ListWeatherProps) {
           transition={{
             type: "spring",
             delay: index * 100,
-            duration: 500,
+            duration: 400,
           }}
         >
           <ListWeatherItem item={item} filterType={filterType} />

@@ -19,11 +19,15 @@ export const USER_COORDS_STORAGE_KEY = "user_coords";
 
 export const CurrentLocationContext = createContext<{
   location: UserLocation | null;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => null;
   setLocation: (location: UserLocation) => null;
   setCurrentLocation: () => Promise<any> | null;
   setDeviceLocation: () => Promise<any> | null;
 }>({
   location: null,
+  isLoading: true,
+  setIsLoading: () => null,
   setCurrentLocation: () => null,
   setLocation: () => null,
   setDeviceLocation: () => null,
@@ -75,7 +79,7 @@ function WithCurrentLocation({ children }: WithCurrentLocationProps) {
 
       setLocation(userLocation);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -104,6 +108,11 @@ function WithCurrentLocation({ children }: WithCurrentLocationProps) {
 
   const contextValue = {
     location,
+    isLoading,
+    setIsLoading: (isLoading: boolean) => {
+      setIsLoading(isLoading);
+      return null;
+    },
     setLocation: (newLocation: UserLocation) => {
       onChangeLocation(newLocation);
       return null;
