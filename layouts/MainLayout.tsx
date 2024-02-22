@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { MotiView } from "moti";
 import { useEffect } from "react";
 
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    marginTop: StatusBar.currentHeight,
+    // marginTop: StatusBar.currentHeight,
   },
   content: {
     paddingBottom: 40,

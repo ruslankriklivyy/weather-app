@@ -1,4 +1,5 @@
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 import {
   useFonts,
@@ -30,7 +31,7 @@ export default function App() {
       <WithTheme>
         <WithCurrentLocation>
           <WithWeather>
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView edges={["top"]} style={styles.container}>
               <ScrollView style={styles.scrollView}>
                 <MainLayout />
               </ScrollView>
