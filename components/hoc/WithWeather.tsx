@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DegreeType } from "../../types/general/DegreeType";
 import { FilterType } from "../../types/general/FilterType";
@@ -6,6 +13,8 @@ import { FilterType } from "../../types/general/FilterType";
 interface WithWeatherProps {
   children: ReactNode;
 }
+
+export const DEGREE_TYPE_STORAGE_KEY = "degree_type";
 
 export const WeatherContext = createContext<{
   degreeType: DegreeType;
@@ -38,7 +47,8 @@ function WithWeather({ children }: WithWeatherProps) {
       setIsAnimate(isAnimate);
       return null;
     },
-    setDegreeType: (type: DegreeType) => {
+    setDegreeType: async (type: DegreeType) => {
+      await AsyncStorage.setItem(DEGREE_TYPE_STORAGE_KEY, type);
       setDegreeType(type);
       return null;
     },
@@ -47,6 +57,27 @@ function WithWeather({ children }: WithWeatherProps) {
       return null;
     },
   };
+
+  const initDegreeType = async () => {
+    try {
+      const degreeTypeFromStorage = await AsyncStorage.getItem(
+        DEGREE_TYPE_STORAGE_KEY,
+      );
+
+      if (degreeTypeFromStorage) {
+        setDegreeType(degreeTypeFromStorage as DegreeType);
+      } else {
+        await AsyncStorage.setItem(DEGREE_TYPE_STORAGE_KEY, "C");
+        setDegreeType("C");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    initDegreeType();
+  }, []);
 
   return (
     <WeatherContext.Provider value={contextValue}>

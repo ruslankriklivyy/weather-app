@@ -11,6 +11,7 @@ import {
 import WithCurrentLocation from "./components/hoc/WithCurrentLocation";
 import WithWeather from "./components/hoc/WithWeather";
 import MainLayout from "./layouts/MainLayout";
+import WithTheme from "./components/hoc/WithTheme";
 
 export default function App() {
   let [fontsLoaded, fontError] = useFonts({
@@ -26,15 +27,17 @@ export default function App() {
 
   return (
     <AutocompleteDropdownContextProvider>
-      <WithCurrentLocation>
-        <WithWeather>
-          <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-              <MainLayout />
-            </ScrollView>
-          </SafeAreaView>
-        </WithWeather>
-      </WithCurrentLocation>
+      <WithTheme>
+        <WithCurrentLocation>
+          <WithWeather>
+            <SafeAreaView style={styles.container}>
+              <ScrollView style={styles.scrollView}>
+                <MainLayout />
+              </ScrollView>
+            </SafeAreaView>
+          </WithWeather>
+        </WithCurrentLocation>
+      </WithTheme>
     </AutocompleteDropdownContextProvider>
   );
 }

@@ -7,6 +7,8 @@ import {
   USER_COORDS_STORAGE_KEY,
 } from "../components/hoc/WithCurrentLocation";
 
+export const WEATHER_DATA_STORAGE_KEY = "weather_data";
+
 export default function useWeather() {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState<any>(null);
@@ -26,6 +28,11 @@ export default function useWeather() {
         lon: locationJSON.longitude,
         lat: locationJSON.latitude,
       });
+
+      await AsyncStorage.setItem(
+        WEATHER_DATA_STORAGE_KEY,
+        JSON.stringify(weatherFromApi),
+      );
 
       setWeather(weatherFromApi);
     } catch (error) {

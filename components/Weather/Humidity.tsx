@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
+import { MotiView } from "moti";
+import { useEffect, useState } from "react";
 
 import { WeatherBlockInfoStyles } from "../../styles/WeatherBlockInfo";
 import { getHumidityStatus } from "../../helpers/getHumidityStatus";
-import { MotiView } from "moti";
-import { useEffect, useState } from "react";
 
 interface HumidityProps {
   humidity?: number;

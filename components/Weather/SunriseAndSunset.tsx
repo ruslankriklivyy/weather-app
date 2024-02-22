@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
 import { WeatherBlockInfoStyles } from "../../styles/WeatherBlockInfo";
+import { WeatherDataCurrent } from "../../types/entities/WeatherData";
 
 interface SunriseAndSunsetProps {
-  weather: any;
+  weather: WeatherDataCurrent;
 }
 
 interface Data {

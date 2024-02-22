@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 import WindStatus from "./WindStatus";
 import SunriseAndSunset from "./SunriseAndSunset";
@@ -10,10 +10,12 @@ import { getWeatherIcon } from "../../helpers/getWeatherIcon";
 import { useCurrentLocationContext } from "../hoc/WithCurrentLocation";
 import Picker from "./Picker";
 import ListWeather from "./ListWeather";
+import { useWeatherContext } from "../hoc/WithWeather";
 
 export default function CurrentWeather() {
   const { weather, isLoading } = useWeather();
   const { location } = useCurrentLocationContext();
+  const { degreeType } = useWeatherContext();
 
   const tempMax = weather?.current?.temp || 0;
   const tempMin = weather?.daily[0]?.temp?.min || 0;
@@ -30,10 +32,10 @@ export default function CurrentWeather() {
 
           <View style={styles.weatherBox}>
             <Text style={styles.weatherValue}>
-              {getTemp(weather?.current?.temp)}
+              {getTemp(weather?.current?.temp, degreeType)}
             </Text>
 
-            <Text style={styles.weatherDegree}>°C</Text>
+            <Text style={styles.weatherDegree}>°{degreeType}</Text>
           </View>
 
           <View style={styles.moreInfo}>
@@ -43,7 +45,10 @@ export default function CurrentWeather() {
 
             <Humidity humidity={weather?.current?.humidity} />
 
-            <MinMaxTemp min={getTemp(tempMin)} max={getTemp(tempMax)} />
+            <MinMaxTemp
+              min={getTemp(tempMin, degreeType)}
+              max={getTemp(tempMax, degreeType)}
+            />
           </View>
 
           <View style={styles.bottom}>

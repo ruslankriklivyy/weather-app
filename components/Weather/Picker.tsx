@@ -9,30 +9,48 @@ const ITEMS: PickerItem[] = [
 ];
 
 export default function Picker() {
-  const { filterType, setFilterType } = useWeatherContext();
+  const { filterType, degreeType, setFilterType, setDegreeType } =
+    useWeatherContext();
+
+  const onChangeDegreeType = () => {
+    if (degreeType === "F") {
+      setDegreeType("C");
+    } else {
+      setDegreeType("F");
+    }
+  };
 
   return (
     <View style={styles.picker}>
-      {ITEMS.map(({ id, title, type }) => (
-        <TouchableOpacity
-          key={id}
-          activeOpacity={0.8}
-          style={
-            filterType === type ? styles.activePickerItem : styles.pickerItem
-          }
-          onPress={() => setFilterType(type)}
-        >
-          <Text
+      <View style={styles.pickerFilterType}>
+        {ITEMS.map(({ id, title, type }) => (
+          <TouchableOpacity
+            key={id}
+            activeOpacity={0.8}
             style={
-              filterType === type
-                ? styles.pickerActiveItemText
-                : styles.pickerItemText
+              filterType === type ? styles.activePickerItem : styles.pickerItem
             }
+            onPress={() => setFilterType(type)}
           >
-            {title}
-          </Text>
-        </TouchableOpacity>
-      ))}
+            <Text
+              style={
+                filterType === type
+                  ? styles.pickerActiveItemText
+                  : styles.pickerItemText
+              }
+            >
+              {title}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <TouchableOpacity
+        style={styles.activePickerItem}
+        onPress={onChangeDegreeType}
+      >
+        <Text style={styles.pickerActiveItemText}>°{degreeType}</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -41,7 +59,11 @@ const styles = StyleSheet.create({
   picker: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+  },
+  pickerFilterType: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: 20,
   },
   pickerItem: {
