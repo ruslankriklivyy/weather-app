@@ -36,7 +36,11 @@ export default function useWeather() {
 
       setWeather(weatherFromApi);
     } catch (error) {
-      console.log(error);
+      setWeather(
+        JSON.parse(
+          (await AsyncStorage.getItem(WEATHER_DATA_STORAGE_KEY)) || "",
+        ),
+      );
     } finally {
       setIsLoading(false);
     }

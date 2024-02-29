@@ -16,17 +16,17 @@ export default function ListWeather({ weather }: ListWeatherProps) {
   const [isAnimate, setIsAnimate] = useState(true);
   const [items, setItems] = useState<CustomWeatherData[]>([]);
 
-  const { filterType, degreeType } = useWeatherContext();
+  const { filterType } = useWeatherContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setItems(buildListWeather({ weather, filterType, degreeType }));
+      setItems(buildListWeather({ weather, filterType }));
     }, 1000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [filterType, degreeType, weather]);
+  }, [filterType, weather]);
 
   useEffect(() => {
     setIsAnimate(true);

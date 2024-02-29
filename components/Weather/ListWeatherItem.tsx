@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { getWeatherIcon } from "../../helpers/getWeatherIcon";
 import { FilterType } from "../../types/general/FilterType";
 import { CustomWeatherData } from "../../types/entities/CustomWeatherData";
+import { useWeatherContext } from "../hoc/WithWeather";
+import { getTemp } from "../../helpers/getTemp";
 
 interface ListWeatherItemProps {
   item: CustomWeatherData;
@@ -10,6 +12,8 @@ interface ListWeatherItemProps {
 }
 
 export default function ListWeatherItem({ item }: ListWeatherItemProps) {
+  const { degreeType } = useWeatherContext();
+
   return (
     <View style={styles.listWeatherItem}>
       <Text style={styles.listWeatherItemDay}>{item.date}</Text>
@@ -17,10 +21,14 @@ export default function ListWeatherItem({ item }: ListWeatherItemProps) {
       {getWeatherIcon(item?.weather?.[0]?.id, 100)}
 
       <View style={styles.listWeatherItemBottom}>
-        <Text style={styles.listWeatherItemTemp}>{item?.temp}°</Text>
+        <Text style={styles.listWeatherItemTemp}>
+          {getTemp(item?.temp, degreeType)}°
+        </Text>
 
         {typeof item?.minTemp === "number" && (
-          <Text style={styles.listWeatherItemTempMin}>{item?.minTemp}°</Text>
+          <Text style={styles.listWeatherItemTempMin}>
+            {getTemp(item?.minTemp, degreeType)}°
+          </Text>
         )}
       </View>
     </View>

@@ -14,9 +14,10 @@ export default function Humidity({ humidity = 0 }: HumidityProps) {
 
   useEffect(() => {
     setIsAnimate(true);
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsAnimate(false);
-    }, 1200);
+    }, 500);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

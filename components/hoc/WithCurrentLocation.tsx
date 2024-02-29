@@ -51,13 +51,13 @@ function WithCurrentLocation({ children }: WithCurrentLocationProps) {
   const setDeviceLocation = async () => {
     setIsLoading(true);
 
+    const { status } = await Location.requestForegroundPermissionsAsync();
+
+    if (status !== "granted") {
+      return;
+    }
+
     try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-
-      if (status !== "granted") {
-        return;
-      }
-
       const currentLocation = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Highest,
       });

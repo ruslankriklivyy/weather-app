@@ -13,13 +13,11 @@ import { CustomWeatherData } from "../types/entities/CustomWeatherData";
 interface BuildListWeatherArgs {
   weather: WeatherData;
   filterType: FilterType;
-  degreeType: DegreeType;
 }
 
 export default function buildListWeather({
   weather,
   filterType,
-  degreeType,
 }: BuildListWeatherArgs): CustomWeatherData[] {
   const filteredItems =
     filterType === "today"
@@ -31,12 +29,10 @@ export default function buildListWeather({
     );
     const temp =
       filterType === "today"
-        ? getTemp((item as WeatherHourly)?.temp, degreeType)
-        : getTemp((item as WeatherDaily)?.temp?.max, degreeType);
+        ? (item as WeatherHourly)?.temp
+        : (item as WeatherDaily)?.temp?.max;
     const minTemp =
-      filterType === "week"
-        ? getTemp((item as WeatherDaily)?.temp?.min, degreeType)
-        : null;
+      filterType === "week" ? (item as WeatherDaily)?.temp?.min : null;
 
     return {
       ...item,
