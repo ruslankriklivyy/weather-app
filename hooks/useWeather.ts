@@ -13,7 +13,7 @@ export default function useWeather() {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState<any>(null);
 
-  const { location } = useCurrentLocationContext();
+  const { location, setCurrentLocation } = useCurrentLocationContext();
 
   const getWeather = async () => {
     setIsLoading(true);
@@ -21,7 +21,9 @@ export default function useWeather() {
     try {
       const location = await AsyncStorage.getItem(USER_COORDS_STORAGE_KEY);
 
-      if (!location) return new Error("Location is empty");
+      if (!location) {
+        return setCurrentLocation();
+      }
 
       const locationJSON = JSON.parse(location);
       const weatherFromApi = await weatherAPI.fetchCurrentWeather({
