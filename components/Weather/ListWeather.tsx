@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { MotiView } from "moti";
 import { useEffect, useState } from "react";
 
@@ -13,16 +13,19 @@ interface ListWeatherProps {
 }
 
 export default function ListWeather({ weather }: ListWeatherProps) {
+  const [isLoading, setIsLoading] = useState(true);
   const [isAnimate, setIsAnimate] = useState(true);
   const [items, setItems] = useState<CustomWeatherData[]>([]);
 
   const { filterType } = useWeatherContext();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setItems(buildListWeather({ weather, filterType }));
-    }, 1000);
-
+    setIsLoading(true);
+    const timer = setTimeout(
+      () => setItems(buildListWeather({ weather, filterType })),
+      1000,
+    );
+    setIsLoading(false);
     return () => {
       clearTimeout(timer);
     };
@@ -41,22 +44,27 @@ export default function ListWeather({ weather }: ListWeatherProps) {
 
   return (
     <View style={styles.listWeather}>
-      {items?.map((item, index) => (
-        <MotiView
-          key={index}
-          animate={{
-            opacity: isAnimate ? 0 : 1,
-            transform: isAnimate ? [{ translateY: 0 }] : [{ translateY: 10 }],
-          }}
-          transition={{
-            type: "spring",
-            delay: index * 100,
-            duration: 400,
-          }}
-        >
-          <ListWeatherItem item={item} filterType={filterType} />
-        </MotiView>
-      ))}
+      {isLoading && (
+        <ActivityIndicator size={"large"} style={{ height: 200 }} />
+      )}
+
+      {!isLoading &&
+        items?.map((item, index) => (
+          <MotiView
+            key={index}
+            animate={{
+              opacity: isAnimate ? 0 : 1,
+              transform: isAnimate ? [{ translateY: 0 }] : [{ translateY: 10 }],
+            }}
+            transition={{
+              type: "spring",
+              delay: index * 100,
+              duration: 400,
+            }}
+          >
+            <ListWeatherItem item={item} filterType={filterType} />
+          </MotiView>
+        ))}
     </View>
   );
 }

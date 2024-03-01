@@ -57,6 +57,7 @@ export default function Picker() {
 
 const styles = StyleSheet.create({
   picker: {
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
