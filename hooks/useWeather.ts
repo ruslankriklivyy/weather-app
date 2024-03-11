@@ -6,12 +6,13 @@ import {
   useCurrentLocationContext,
   USER_COORDS_STORAGE_KEY,
 } from "../components/hoc/WithCurrentLocation";
+import { WeatherData } from "../types/entities/WeatherData";
 
 export const WEATHER_DATA_STORAGE_KEY = "weather_data";
 
 export default function useWeather() {
   const [isLoading, setIsLoading] = useState(true);
-  const [weather, setWeather] = useState<any>(null);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
 
   const { location, setCurrentLocation } = useCurrentLocationContext();
 
@@ -43,6 +44,7 @@ export default function useWeather() {
           (await AsyncStorage.getItem(WEATHER_DATA_STORAGE_KEY)) || "",
         ),
       );
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

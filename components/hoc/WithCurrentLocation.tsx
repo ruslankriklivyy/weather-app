@@ -51,12 +51,6 @@ function WithCurrentLocation({ children }: WithCurrentLocationProps) {
   const setDeviceLocation = async () => {
     setIsLoading(true);
 
-    const { status } = await Location.requestForegroundPermissionsAsync();
-
-    if (status !== "granted") {
-      return;
-    }
-
     try {
       const currentLocation = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Highest,
@@ -89,6 +83,12 @@ function WithCurrentLocation({ children }: WithCurrentLocationProps) {
     setIsLoading(true);
 
     try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        return;
+      }
+
       const userLocationFromStorage = await AsyncStorage.getItem(
         USER_COORDS_STORAGE_KEY,
       );

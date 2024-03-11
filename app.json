@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "weather-app",
+    "name": "Weather App",
     "slug": "weather-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,29 +20,10 @@
           "node_modules/@expo-google-fonts/rubik/Rubik_600SemiBold.ttf",
           "node_modules/@expo-google-fonts/rubik/Rubik_700Bold.ttf"
         ]
-      }],
-      ["react-native-android-widget", {
-        "fonts": [
-          "node_modules/@expo-google-fonts/rubik/Rubik_400Regular.ttf",
-          "node_modules/@expo-google-fonts/rubik/Rubik_500Medium.ttf",
-          "node_modules/@expo-google-fonts/rubik/Rubik_600SemiBold.ttf",
-          "node_modules/@expo-google-fonts/rubik/Rubik_700Bold.ttf"
-        ],
-        "widgets": [
-          {
-            "name": "Weather",
-            "label": "Weather widget",
-            "minWidth": "320dp",
-            "minHeight": "120dp",
-            "description": "Show weather",
-            "updatePeriodMillis": 1800000,
-            "previewImage": "./assets/weather.png"
-          }
-        ]
       }]
     ],
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/weather-app.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
